@@ -1,0 +1,35 @@
+{
+  "name": "hide-secret",
+  "version": "0.1.0",
+  "description": "Hiding password/secret-token fields of a JSON object utility",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib/"
+  },
+  "files": [
+    "bin/",
+    "lib/"
+  ],
+  "scripts": {
+    "build": "babel ./src -d ./lib",
+    "clean": "rm -rf ./lib",
+    "prepublish": "npm run clean && npm run build",
+    "pretest": "npm run clean && npm run build",
+    "test": "mocha --recursive test/**/*-test.js",
+    "verify": "npm run prepublish && mocha --recursive test/**/*-test.js"
+  },
+  "author": "devebot",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.clonedeepwith": "^4.5.0",
+    "traverse": "^0.6.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-minify-mangle-names": "^0.3.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "lodash": "^4.17.10",
+    "mocha": "^5.2.0"
+  }
+}
