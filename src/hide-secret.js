@@ -12,9 +12,17 @@ const CACHED_MASKED_SECRET = {};
 
 function hideSecret(obj, opts) {
   if (opts && opts.skipped) return obj;
+
+  let fieldNames = null;
+  if (opts && opts.secretFieldNames) {
+    fieldNames = getSecretFieldNames(opts.secretFieldNames);
+  }
+
   if (obj === null || obj === undefined || typeof obj !== 'object') return obj;
+
   opts = opts || {};
-  let fieldNames = getSecretFieldNames(opts.secretFieldNames);
+  fieldNames = fieldNames || getSecretFieldNames(opts.secretFieldNames);
+
   if (opts.immutable !== false) {
     obj = cloneDeepWith(obj, function(value, key) {
       if(fieldNames[key]) {

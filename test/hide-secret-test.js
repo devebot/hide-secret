@@ -88,4 +88,35 @@ describe('hideSecret', function() {
     assert.equal(explicit, s2);
     assert.deepEqual(explicit, expected);
   });
+
+  it('should cache the new secret field names list', function() {
+    hideSecret(null, {
+      secretFieldNames: ['secret-token', 'password']
+    });
+
+    var obj = {
+      pass: 'no-change',
+      info: {
+        username: 'noname',
+        password: 'nowhere',
+        refresh: {
+          "secret-token": "the physical world is not the highest reality"
+        }
+      }
+    }
+
+    var expected = {
+      "pass": "no-change",
+      "info": {
+        "username": "noname",
+        "password": "*******",
+        "refresh": {
+          "secret-token": "*****************..."
+        }
+      }
+    }
+
+    assert.deepEqual(hideSecret(obj), expected);
+    assert.notDeepEqual(obj, expected);
+  });
 });
