@@ -7,7 +7,7 @@ var hideSecret = require('../index');
 describe('hideSecret', function() {
   var obj = {
     name: 'myname',
-    password: 's3cr3t',
+    pass: 's3cr3t',
     accounts: [
       {
         role: 'admin',
@@ -18,6 +18,16 @@ describe('hideSecret', function() {
         role: 'API',
         token: 'a-sample-token',
         secret: 'tops3cr3t'
+      },
+      {
+        role: 'API',
+        token: 'a-sample-passwd',
+        secret: 'tops3cr3t'
+      },
+      {
+        role: 'bot',
+        token: 'passphrase-example',
+        passphrase: 'the fox jumps over lazy dog'
       }
     ]
   };

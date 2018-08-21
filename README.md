@@ -20,7 +20,7 @@ The `opts` can be:
 
 * `opts.immutable` - clone the input json object for transforming, keep the original object unchanged (default: `true`).
 * `opts.secretFieldNames` - a list of secrect field names that need to be hidden (default: 
-`{ pass: 1, passwd: 1, password: 1, secret: 1 }`).
+`['pass', 'passwd', 'password', 'passphrase', 'secret']`).
 * `opts.skipped` - skip transforming the json object (default: `false`).
 
 ### Example
@@ -40,7 +40,7 @@ var jsonObj = {
     {
       role: 'admin',
       username: 'root',
-      password: 'very-very-very-long-passphrase'
+      password: 'a-very-very-very-long-passphrase'
     },
     {
       role: 'API',
@@ -69,7 +69,7 @@ The console will display the output as the following:
     {
       "role": "admin",
       "username": "root",
-      "password": "********************..."
+      "password": "*****************..."
     },
     {
       "role": "API",
@@ -96,7 +96,7 @@ The output will be:
     {
       "role": "admin",
       "username": "root",
-      "password": "very-very-very-long-passphrase"
+      "password": "a-very-very-very-long-passphrase"
     },
     {
       "role": "API",
