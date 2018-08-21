@@ -1,6 +1,6 @@
 {
   "name": "hide-secret",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Hiding password/secret-token fields of a JSON object utility",
   "main": "index.js",
   "directories": {
@@ -18,8 +18,23 @@
     "test": "mocha --recursive test/**/*-test.js",
     "verify": "npm run prepublish && mocha --recursive test/**/*-test.js"
   },
-  "author": "devebot",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devebot/hide-secret.git"
+  },
+  "keywords": [
+    "hide-password",
+    "logging"
+  ],
+  "author": {
+    "name": "Devebot",
+    "email": "contact@devebot.com"
+  },
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devebot/hide-secret/issues"
+  },
+  "homepage": "https://github.com/devebot/hide-secret#readme",
   "dependencies": {
     "lodash.clonedeepwith": "^4.5.0",
     "traverse": "^0.6.6"
@@ -28,6 +43,7 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-minify-mangle-names": "^0.3.0",
     "babel-preset-env": "^1.6.1",
+    "benchmark": "^2.1.4",
     "chai": "^4.1.2",
     "lodash": "^4.17.10",
     "mocha": "^5.2.0"
