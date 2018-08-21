@@ -12,7 +12,7 @@ describe('hideSecret', function() {
       {
         role: 'admin',
         username: 'root',
-        password: 'very-very-very-long-passphrase'
+        password: 'a-very-very-very-long-passphrase'
       },
       {
         role: 'API',
@@ -32,6 +32,33 @@ describe('hideSecret', function() {
     ]
   };
 
+  var expected = {
+    "name": "myname",
+    "pass": "******",
+    "accounts": [
+      {
+        "role": "admin",
+        "username": "root",
+        "password": "*****************..."
+      },
+      {
+        "role": "API",
+        "token": "a-sample-token",
+        "secret": "*********"
+      },
+      {
+        "role": "API",
+        "token": "a-sample-passwd",
+        "secret": "*********"
+      },
+      {
+        "role": "bot",
+        "token": "passphrase-example",
+        "passphrase": "*****************..."
+      }
+    ]
+  };
+
   it('should skip transforming if opts.skipped is [true]', function() {
     var s1 = lodash.cloneDeep(obj);
     var implicit = hideSecret(s1, { skipped: true });
@@ -42,25 +69,23 @@ describe('hideSecret', function() {
   it('should clone and hide secret fields of a json object', function() {
     var s1 = lodash.cloneDeep(obj);
     var implicit = hideSecret(s1);
+    assert.deepEqual(s1, obj);
+    assert.notEqual(implicit, s1);
+    assert.deepEqual(implicit, expected);
 
     var s2 = lodash.cloneDeep(obj);
     var explicit = hideSecret(s2, { immutable: true });
-
-    assert.notEqual(implicit, s1);
-    assert.notEqual(explicit, s2);
-
-    assert.deepEqual(s1, obj);
     assert.deepEqual(s2, obj);
+    assert.notEqual(explicit, s2);
+    assert.deepEqual(explicit, expected);
 
     assert.deepEqual(implicit, explicit);
-    assert.notDeepEqual(explicit, obj);
   });
 
   it('should hide secret fields of a json object on-the-fly', function() {
     var s2 = lodash.cloneDeep(obj);
     var explicit = hideSecret(s2, { immutable: false });
-
     assert.equal(explicit, s2);
-    assert.notDeepEqual(s2, obj);
+    assert.deepEqual(explicit, expected);
   });
 });
