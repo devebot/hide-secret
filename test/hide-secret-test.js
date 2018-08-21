@@ -74,7 +74,7 @@ describe('hideSecret', function() {
     assert.deepEqual(implicit, expected);
 
     var s2 = lodash.cloneDeep(obj);
-    var explicit = hideSecret(s2, { immutable: true });
+    var explicit = hideSecret(s2, { cloned: true });
     assert.deepEqual(s2, obj);
     assert.notEqual(explicit, s2);
     assert.deepEqual(explicit, expected);
@@ -84,7 +84,7 @@ describe('hideSecret', function() {
 
   it('should hide secret fields of a json object on-the-fly', function() {
     var s2 = lodash.cloneDeep(obj);
-    var explicit = hideSecret(s2, { immutable: false });
+    var explicit = hideSecret(s2, { cloned: false });
     assert.equal(explicit, s2);
     assert.deepEqual(explicit, expected);
   });

@@ -23,7 +23,7 @@ function hideSecret(obj, opts) {
   opts = opts || {};
   fieldNames = fieldNames || getSecretFieldNames(opts.secretFieldNames);
 
-  if (opts.immutable !== false) {
+  if (opts.cloned !== false) {
     obj = cloneDeepWith(obj, function(value, key) {
       if(fieldNames[key]) {
         return maskPassword(value);
@@ -39,6 +39,11 @@ function hideSecret(obj, opts) {
   return obj;
 }
 
+function isEmpty(obj) {
+  for (var key in obj) if (obj.hasOwnProperty(key)) return false;
+  return true;
+};
+
 function getSecretFieldNames(names) {
   let fieldNames = CACHED_SECRET_FIELD_NAMES;
   if (Array.isArray(names)) {
@@ -49,7 +54,7 @@ function getSecretFieldNames(names) {
       fieldNames[names[i]] = true;
     }
   }
-  if (Object.keys(fieldNames).length === 0) {
+  if (isEmpty(fieldNames)) {
     names = DEFAULT_SECRET_FIELD_NAMES;
     for(let i in names) {
       fieldNames[names[i]] = true;

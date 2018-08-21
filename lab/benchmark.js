@@ -23,31 +23,31 @@ function execSuite(obj) {
     });
 
   suite
-    .add('JSON.stringify(hideSecret(obj, { immutable: true }))', {
+    .add('hideSecret(obj, { cloned: true })', {
       'defer': false,
       'fn': function(deferred) {
-        JSON.stringify(hideSecret(obj, { immutable: true }));
+        JSON.stringify(hideSecret(obj, { cloned: true }));
       }
     });
 
   suite
-    .add('JSON.stringify(hideSecret(copied, { immutable: false }))', {
+    .add('hideSecret(obj, { cloned: false })', {
       'defer': false,
       'fn': function(deferred) {
-        JSON.stringify(hideSecret(copied, { immutable: false }));
+        JSON.stringify(hideSecret(copied, { cloned: false }));
       }
     });
 
   suite
-    .add('JSON.stringify(hideSecret(lodash.cloneDeep(obj))', {
+    .add('hideSecret(lodash.cloneDeep(obj))', {
       'defer': false,
       'fn': function(deferred) {
-        JSON.stringify(hideSecret(lodash.cloneDeep(obj), { immutable: false }));
+        JSON.stringify(hideSecret(lodash.cloneDeep(obj), { cloned: false }));
       }
     });
 
-  suite
-    .add('JSON.stringify(hideSecret(obj, { skipped: true }))', {
+  (process.env.SKIPPED === 'true') && suite
+    .add('hideSecret(obj, { skipped: true })', {
       'defer': false,
       'fn': function(deferred) {
         JSON.stringify(hideSecret(obj, { skipped: true }));
