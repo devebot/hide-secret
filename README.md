@@ -26,7 +26,12 @@ The `opts` can be:
 ### Example
 
 ```javascript
+// file: lab/example.js
 var hideSecret = require('hide-secret');
+
+var opts = {
+  skipped: (process.env.NODE_ENV === 'test')
+}
 
 var jsonObj = {
   name: 'myname',
@@ -45,7 +50,13 @@ var jsonObj = {
   ]
 };
 
-console.log(JSON.stringify(hideSecret(jsonObj), null, 2));
+console.log(JSON.stringify(hideSecret(jsonObj, opts), null, 2));
+```
+
+Run the example (without `NODE_ENV`):
+
+```shell
+node lab/example.js
 ```
 
 The console will display the output as the following:
@@ -64,6 +75,33 @@ The console will display the output as the following:
       "role": "API",
       "token": "a-sample-token",
       "secret": "*********"
+    }
+  ]
+}
+```
+
+Run the example with `NODE_ENV=test`:
+
+```shell
+NODE_ENV=test node lab/example.js
+```
+
+The output will be:
+
+```plain
+{
+  "name": "myname",
+  "password": "s3cr3t",
+  "accounts": [
+    {
+      "role": "admin",
+      "username": "root",
+      "password": "very-very-very-long-passphrase"
+    },
+    {
+      "role": "API",
+      "token": "a-sample-token",
+      "secret": "tops3cr3t"
     }
   ]
 }

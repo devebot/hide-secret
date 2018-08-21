@@ -3,7 +3,11 @@
 const cloneDeepWith = require('lodash.clonedeepwith');
 const traverse = require('traverse');
 
-const DEFAULT_SECRET_FIELD_NAMES = { pass: 1, passwd: 1, password: 1, secret: 1 };
+const DEFAULT_SECRET_FIELD_NAMES = {
+  pass: 1, passwd: 1, password: 1,
+  passphrase: 1,
+  secret: 1
+};
 const DEFAULT_MAX_SECRET_LENGTH = 20;
 const CACHED_MASKED_SECRET = {};
 
